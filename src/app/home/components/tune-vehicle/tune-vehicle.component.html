@@ -1,14 +1,16 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-
+<ion-content [fullscreen]="true" class="ion-padding" no-bounce>
   <ion-list>
     <ion-list-header class="title-label">Types</ion-list-header>
-
     <ion-radio-group [(ngModel)]="selectedVehicleType">
       <ion-item *ngFor="let item of vehicletypes">
         <ion-label class="item-wrapper">
           <ion-radio [value]="item.name"></ion-radio>
-          <div class="item-name">{{ item.name }}</div>
+          <ion-col>
+            <div class="item-name">{{ item.name }}</div>
+          </ion-col>
+         <ion-col>
           <div class="item-credits">{{ item.credits }} credits</div>
+         </ion-col>
         </ion-label>
       </ion-item>
     </ion-radio-group>
@@ -17,11 +19,16 @@
   <ion-list>
     <ion-list-header class="title-label">Tires</ion-list-header>
     <ion-radio-group [(ngModel)]="selectedVehicleTire">
-      <ion-item *ngFor="let item of vehicletires">
+      <ion-item *ngFor="let item of vehicletires" [disabled]="!selectedVehicleType || selectedVehicleType === 'Hovercraft'">
         <ion-label class="item-wrapper">
           <ion-radio [value]="item.name"></ion-radio>
-          <div class="item-name">{{ item.name }}</div>
-          <div class="item-credits">{{ item.credits }} credits</div>
+          <ion-col>
+            <div class="item-name">{{ item.name }}</div>
+          </ion-col>
+          <ion-col>
+            <div class="item-credits">{{ item.credits }} credits</div>
+
+          </ion-col>
         </ion-label>
       </ion-item>
     </ion-radio-group>
@@ -32,8 +39,13 @@
     <ion-item *ngFor="let item of vehicleextras">
       <ion-label class="item-wrapper">
         <ion-checkbox [(ngModel)]="item.selected" [value]="item.name" (ionChange)="updateSelectedExtras()"></ion-checkbox>
-        <div class="item-name">{{ item.name }}</div>
-        <div class="item-credits">{{ item.credits }} credits</div>
+        <ion-col>
+          <div class="item-name">{{ item.name }}</div>
+        </ion-col>
+        <ion-col>
+          <div class="item-credits">{{ item.credits }} credits</div>
+
+        </ion-col>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -41,17 +53,22 @@
   <div>
     <ion-title>
       <ion-label class="item-wrapper">
-        <div class="title-label">Total </div>
-        <div>
-          {{ calculateTotalCredits() }} credits
+        <div class="title-label" [ngClass]="{'total-credits-red': totalCreditsRed}">
+          Total
         </div>
+        <ion-col>
+          <div [ngClass]="{'total-credits-red': totalCredits > availableCredits}">
+            {{ calculateTotalCredits() }} credits
+          </div> 
+        </ion-col>
+
       </ion-label>
     </ion-title>
   </div>
 
-  <ion-label [ngClass]="{'availableCredits-red': isTotalExceedsAvailable}">
-     {{ availableCredits }} credits Available
+  <ion-label [ngClass]="{'available-credits': true, 'availableCredits-red': totalCredits > availableCredits}">
+    Available Credits: {{ availableCredits }} credits
   </ion-label>
-
-  <ion-button expand="full" [disabled]="isTotalExceedsAvailable" (click)="purchase()">Purchase</ion-button>
+  <ion-button expand="full" [disabled]="disablePurchaseButton" (click)="purchase()">Purchase</ion-button>
+  <ion-col></ion-col>
 </ion-content>

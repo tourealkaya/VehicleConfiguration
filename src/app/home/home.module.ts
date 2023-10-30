@@ -9,6 +9,7 @@ import { TuneVehicleComponent } from './components/tune-vehicle/tune-vehicle.com
 import { HomePageRoutingModule } from './home-routing.module';
 import { VehicletypeComponent } from './components/vehicletype/vehicletype.component';
 import { VehicletireComponent } from './components/vehicletire/vehicletire.component';
+import { VehicleExtra } from './data/vehicle-extra';
 import { VehicleextraComponent } from './components/vehicleextra/vehicleextra.component';
 @NgModule({
   imports: [

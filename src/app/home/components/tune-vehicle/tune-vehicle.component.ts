@@ -3,7 +3,6 @@ import { TuneVehicleRepository } from '../../repository/tune-vehicle-repository'
 import { VehicleType } from '../../data/vehicle-type';
 import { VehicleTire } from '../../data/vehicle-tire';
 import { VehicleExtra } from '../../data/vehicle-extra';
-
 @Component({
   selector: 'app-tune-vehicle',
   templateUrl: './tune-vehicle.component.html',
@@ -16,24 +15,25 @@ export class TuneVehicleComponent implements OnInit {
   isTotalExceedsAvailable: boolean = false;
 
   vehicletypes!: VehicleType[];
-  selectedVehicleType!: string;
+  selectedVehicleType: string = ''; 
 
   vehicletires!: VehicleTire[];
-  selectedVehicleTire!: string;
+  selectedVehicleTire: string = ''; 
 
   vehicleextras!: (VehicleExtra & { selected: boolean })[];
   selectedVehicleExtras: string[] = [];
 
+  
 
   constructor(private tuneVehicleRepository: TuneVehicleRepository) {}
+
 
   ngOnInit(): void {
     this.vehicletypes = this.tuneVehicleRepository.vehicletypes;
     this.vehicletires = this.tuneVehicleRepository.vehicletires;
     this.vehicleextras = this.tuneVehicleRepository.vehicleextras.map(extra => ({ ...extra, selected: false }));
     this.updateTotalCredits();
-
-  }
+    }
 
   updateSelectedExtras() {
     this.selectedVehicleExtras = this.vehicleextras
@@ -45,21 +45,30 @@ export class TuneVehicleComponent implements OnInit {
   calculateTotalCredits(): number {
     let total = 0;
     const typeCredits = this.vehicletypes.find(type => type.name === this.selectedVehicleType)?.credits || 0;
-    const tireCredits = this.vehicletires.find(tire => tire.name === this.selectedVehicleTire)?.credits || 0;
+    const tireCredits = (this.selectedVehicleType !== 'Hovercraft') ? this.vehicletires.find(tire => tire.name === this.selectedVehicleTire)?.credits || 0 : 0;
     const extraCredits = this.vehicleextras
       .filter(extra => extra.selected)
       .reduce((acc, extra) => acc + extra.credits, 0);
     total = typeCredits + tireCredits + extraCredits;
     return total;
   }
-  
 
   updateTotalCredits() {
     this.totalCredits = this.calculateTotalCredits();
     this.isTotalExceedsAvailable = this.totalCredits > this.availableCredits;
+  
+    if (this.isTotalExceedsAvailable) {
+      this.totalCreditsRed = true;
+      this.disablePurchaseButton = true; 
+    } else {
+      this.totalCreditsRed = false;
+      this.disablePurchaseButton = false;
+    }
   }
+  
+  totalCreditsRed: boolean = false;
+  disablePurchaseButton: boolean = false;
 
-  purchase(): void {
-
+  purchase() {
   }
 }
