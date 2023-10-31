@@ -8,9 +8,9 @@
           <ion-col>
             <div class="item-name">{{ item.name }}</div>
           </ion-col>
-         <ion-col>
-          <div class="item-credits">{{ item.credits }} credits</div>
-         </ion-col>
+          <ion-col>
+            <div class="item-credits">{{ item.credits }} credits</div>
+          </ion-col>
         </ion-label>
       </ion-item>
     </ion-radio-group>
@@ -27,7 +27,6 @@
           </ion-col>
           <ion-col>
             <div class="item-credits">{{ item.credits }} credits</div>
-
           </ion-col>
         </ion-label>
       </ion-item>
@@ -44,7 +43,6 @@
         </ion-col>
         <ion-col>
           <div class="item-credits">{{ item.credits }} credits</div>
-
         </ion-col>
       </ion-label>
     </ion-item>
@@ -59,9 +57,8 @@
         <ion-col>
           <div [ngClass]="{'total-credits-red': totalCredits > availableCredits}">
             {{ calculateTotalCredits() }} credits
-          </div> 
+          </div>
         </ion-col>
-
       </ion-label>
     </ion-title>
   </div>

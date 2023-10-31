@@ -3,6 +3,8 @@ import { TuneVehicleRepository } from '../../repository/tune-vehicle-repository'
 import { VehicleType } from '../../data/vehicle-type';
 import { VehicleTire } from '../../data/vehicle-tire';
 import { VehicleExtra } from '../../data/vehicle-extra';
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-tune-vehicle',
   templateUrl: './tune-vehicle.component.html',
@@ -12,6 +14,8 @@ import { VehicleExtra } from '../../data/vehicle-extra';
 export class TuneVehicleComponent implements OnInit {
   availableCredits: number = 215;
   totalCredits: number = 0;
+  totalCreditsRed: boolean = false;
+  disablePurchaseButton: boolean = false;
   isTotalExceedsAvailable: boolean = false;
 
   vehicletypes!: VehicleType[];
@@ -23,17 +27,14 @@ export class TuneVehicleComponent implements OnInit {
   vehicleextras!: (VehicleExtra & { selected: boolean })[];
   selectedVehicleExtras: string[] = [];
 
-  
-
-  constructor(private tuneVehicleRepository: TuneVehicleRepository) {}
-
+  constructor(private tuneVehicleRepository: TuneVehicleRepository, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.vehicletypes = this.tuneVehicleRepository.vehicletypes;
     this.vehicletires = this.tuneVehicleRepository.vehicletires;
     this.vehicleextras = this.tuneVehicleRepository.vehicleextras.map(extra => ({ ...extra, selected: false }));
     this.updateTotalCredits();
-    }
+  }
 
   updateSelectedExtras() {
     this.selectedVehicleExtras = this.vehicleextras
@@ -56,7 +57,7 @@ export class TuneVehicleComponent implements OnInit {
   updateTotalCredits() {
     this.totalCredits = this.calculateTotalCredits();
     this.isTotalExceedsAvailable = this.totalCredits > this.availableCredits;
-  
+
     if (this.isTotalExceedsAvailable) {
       this.totalCreditsRed = true;
       this.disablePurchaseButton = true; 
@@ -65,10 +66,17 @@ export class TuneVehicleComponent implements OnInit {
       this.disablePurchaseButton = false;
     }
   }
-  
-  totalCreditsRed: boolean = false;
-  disablePurchaseButton: boolean = false;
 
   purchase() {
+    if (this.selectedVehicleType) {
+      const purchaseDetails = {
+        chosenVehicleType: this.selectedVehicleType,
+        totalCreditsSpent: this.totalCredits,
+        vehicletires : this.vehicletires,
+        creditsRemaining: this.availableCredits - this.totalCredits,
+      };
+
+      this.router.navigate(['/purchasedone', purchaseDetails], {relativeTo: this.route});
+    }
   }
 }

@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      Purchased Done
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <img src="assets/helmet.png" alt="Description de l'image">
+      
+      <p>Summary of Your Purchase</p>
+      <p>Purchased : {{ chosenVehicleType }}</p>
+      <p>Total amount: {{ totalCreditsSpent }} credits</p>
+      <p>Credits left: {{ creditsRemaining }} credits</p>
+      <ion-button (click)="copyToClipboard()">Copy to Clipboard</ion-button>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

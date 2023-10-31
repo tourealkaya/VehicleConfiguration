@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { TuneVehicleComponent } from './home/components/tune-vehicle/tune-vehicle.component';
+import { PurchasedoneComponent } from './home/components/purchasedone/purchasedone.component';
 
 const routes: Routes = [
   {
@@ -11,6 +13,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  { path: 'tunevehicle', component: TuneVehicleComponent },
+
+  { path: 'purchasedone', component: PurchasedoneComponent },
+
 ];
 
 @NgModule({

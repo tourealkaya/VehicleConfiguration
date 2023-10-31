@@ -9,8 +9,8 @@ import { TuneVehicleComponent } from './components/tune-vehicle/tune-vehicle.com
 import { HomePageRoutingModule } from './home-routing.module';
 import { VehicletypeComponent } from './components/vehicletype/vehicletype.component';
 import { VehicletireComponent } from './components/vehicletire/vehicletire.component';
-import { VehicleExtra } from './data/vehicle-extra';
 import { VehicleextraComponent } from './components/vehicleextra/vehicleextra.component';
+import { PurchasedoneComponent } from './components/purchasedone/purchasedone.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +23,8 @@ import { VehicleextraComponent } from './components/vehicleextra/vehicleextra.co
     TuneVehicleComponent,
     VehicletypeComponent,
     VehicletireComponent,
-    VehicleextraComponent
+    VehicleextraComponent,
+    PurchasedoneComponent
   ],
   providers:[{
     provide: TuneVehicleRepository,
