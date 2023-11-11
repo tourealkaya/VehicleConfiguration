@@ -1,19 +1,23 @@
+<ion-header [translucent]="true"> 
+  <ion-toolbar>
+    <ion-buttons slot="start"> 
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tune Your Vehicle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-card>
-    <ion-card-header>
-      Purchased Done
-    </ion-card-header>
-
     <ion-card-content>
-
-      <img src="assets/helmet.png" alt="Description de l'image">
-      
+      <ion-title>Purchase done</ion-title>
       <p>Summary of Your Purchase</p>
       <p>Purchased : {{ chosenVehicleType }}</p>
       <p>Total amount: {{ totalCreditsSpent }} credits</p>
       <p>Credits left: {{ creditsRemaining }} credits</p>
       <ion-button (click)="copyToClipboard()">Copy to Clipboard</ion-button>
+      <img src="assets/helmet.png" alt="Casque">
     </ion-card-content>
-
   </ion-card>
 </ion-content>

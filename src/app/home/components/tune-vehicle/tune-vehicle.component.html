@@ -51,21 +51,24 @@
   <div>
     <ion-title>
       <ion-label class="item-wrapper">
-        <div class="title-label" [ngClass]="{'total-credits-red': totalCreditsRed}">
+        <div class="title-label">
           Total
         </div>
-        <ion-col>
-          <div [ngClass]="{'total-credits-red': totalCredits > availableCredits}">
+          <div class="title-label">
             {{ calculateTotalCredits() }} credits
           </div>
-        </ion-col>
       </ion-label>
     </ion-title>
   </div>
 
-  <ion-label [ngClass]="{'available-credits': true, 'availableCredits-red': totalCredits > availableCredits}">
-    Available Credits: {{ availableCredits }} credits
+  <ion-label [ngClass]="{'available-credits': true, 'availableCredits-red': totalCreditsRed}">
+    <div>
+      Available Credits: {{ availableCredits }} credits
+
+    </div>
   </ion-label>
+  <ion-card-content>
+
   <ion-button expand="full" [disabled]="disablePurchaseButton" (click)="purchase()">Purchase</ion-button>
-  <ion-col></ion-col>
+  </ion-card-content>
 </ion-content>
