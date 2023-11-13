@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PurchasedoneComponent implements OnInit {
   selectedTire: string = '';
   chosenVehicleType: string = '';
+  selectedVehicleExtras: string= '';
   totalCreditsSpent: number = 0;
   creditsRemaining: number = 0;
 
@@ -20,11 +21,12 @@ export class PurchasedoneComponent implements OnInit {
       this.chosenVehicleType = params['chosenVehicleType'];
       this.totalCreditsSpent = +params['totalCreditsSpent'];
       this.creditsRemaining = +params['creditsRemaining'];
+      this.selectedVehicleExtras =params['selectedVehicleExtras'];
     });
   }
   copyToClipboard() {
     const textArea = document.createElement('textarea');
-    textArea.value = `Purchased: ${this.chosenVehicleType}\nTotal amount: ${this.totalCreditsSpent} credits\nCredits left: ${this.creditsRemaining} credits`;
+    textArea.value = `Purchased: ${this.chosenVehicleType +" "+this.selectedVehicleExtras}\nTotal amount: ${this.totalCreditsSpent} credits\nCredits left: ${this.creditsRemaining} credits`;
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand('copy');

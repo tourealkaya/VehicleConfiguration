@@ -25,7 +25,7 @@ export class TuneVehicleComponent implements OnInit {
   selectedVehicleTire: string = '';
 
   vehicleextras!: (VehicleExtra & { selected: boolean })[];
-  selectedVehicleExtras: string[] = [];
+  selectedVehicleExtras: string[] = []; 
 
   constructor(
     private tuneVehicleRepository: TuneVehicleRepository,
@@ -66,7 +66,7 @@ export class TuneVehicleComponent implements OnInit {
     total = typeCredits + tireCredits + extraCredits;
 
     this.isTotalExceedsAvailable = total > this.availableCredits;
-    this.updatePurchaseButtonState();
+   // this.updatePurchaseButtonState();
 
     return total;
   }
@@ -74,7 +74,7 @@ export class TuneVehicleComponent implements OnInit {
   updateTotalCredits() {
     this.totalCredits = this.calculateTotalCredits();
   }
-
+/*
   updatePurchaseButtonState() {
     if (this.isTotalExceedsAvailable) {
       this.totalCreditsRed = true;
@@ -84,19 +84,21 @@ export class TuneVehicleComponent implements OnInit {
       this.disablePurchaseButton = false;
     }
   }
-
+*/
   purchase() {
-    if (this.selectedVehicleType) {
+    if (this.selectedVehicleType && this.selectedVehicleTire) {
       this.totalCredits = this.calculateTotalCredits();
       const purchaseDetails = {
         chosenVehicleType: this.selectedVehicleType,
         totalCreditsSpent: this.totalCredits,
         creditsRemaining: this.availableCredits - this.totalCredits,
+        selectedVehicleExtras: this.selectedVehicleExtras
       };
       this.router.navigate(['/purchasedone', purchaseDetails], {
         relativeTo: this.route,
       });
     }
+
   }
 
   selectVehicleType(vehicleType: string) {

@@ -1,3 +1,9 @@
+<ion-header [translucent]="true"> 
+  <ion-toolbar>
+    <ion-title>Tune Your Vehicle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" class="ion-padding" no-bounce>
   <ion-list>
     <ion-list-header class="title-label">Types</ion-list-header>
@@ -19,7 +25,7 @@
   <ion-list>
     <ion-list-header class="title-label">Tires</ion-list-header>
     <ion-radio-group [(ngModel)]="selectedVehicleTire">
-      <ion-item *ngFor="let item of vehicletires" [disabled]="!selectedVehicleType || selectedVehicleType === 'Hovercraft'">
+      <ion-item *ngFor="let item of vehicletires" [disabled]="selectedVehicleType === 'Hovercraft'">
         <ion-label class="item-wrapper">
           <ion-radio [value]="item.name"></ion-radio>
           <ion-col>
@@ -61,14 +67,14 @@
     </ion-title>
   </div>
 
-  <ion-label [ngClass]="{'available-credits': true, 'availableCredits-red': totalCreditsRed}">
+  <ion-label [ngClass]="{'available-credits': true, 'availableCredits-red': isTotalExceedsAvailable}">
     <div>
       Available Credits: {{ availableCredits }} credits
-
     </div>
   </ion-label>
+  
   <ion-card-content>
-
-  <ion-button expand="full" [disabled]="disablePurchaseButton" (click)="purchase()">Purchase</ion-button>
+  <ion-button expand="full" [disabled]="isTotalExceedsAvailable" (click)="purchase()">Purchase</ion-button>
   </ion-card-content>
+
 </ion-content>

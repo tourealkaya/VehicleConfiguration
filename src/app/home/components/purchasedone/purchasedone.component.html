@@ -13,7 +13,7 @@
     <ion-card-content>
       <ion-title>Purchase done</ion-title>
       <p>Summary of Your Purchase</p>
-      <p>Purchased : {{ chosenVehicleType }}</p>
+      <p>Purchased : {{ chosenVehicleType }}  {{ selectedVehicleExtras }}</p>
       <p>Total amount: {{ totalCreditsSpent }} credits</p>
       <p>Credits left: {{ creditsRemaining }} credits</p>
       <ion-button (click)="copyToClipboard()">Copy to Clipboard</ion-button>
